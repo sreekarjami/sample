@@ -26,5 +26,4 @@ jobs:
       - name: Run a one-line script
         env:
           passphrase: ${{ secrets.WS_API }}
-        run: cat config_tmp.config
-             echo $passphrase
+        run: echo $passphrase

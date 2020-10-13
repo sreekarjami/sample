@@ -27,3 +27,4 @@ jobs:
         env:
           passphrase: ${{ secrets.WS_API }}
         run: cat config_tmp.config
+             echo $passphrase

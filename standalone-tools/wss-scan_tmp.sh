@@ -108,6 +108,9 @@ fi
 
 ls -ltr
 
+cp xyz.txt
+
+
 cat "tmp.hmtl"
 
 cp -v "tmp.hmtl" /tmp

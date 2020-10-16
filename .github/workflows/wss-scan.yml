@@ -1,0 +1,46 @@
+name: Vulnerability Scan
+
+on:
+  #schedule:
+  #  - cron: '0 0,15 * * *'
+  repository_dispatch:
+    types: [wss-scan]
+  push:
+    branches: [test-sree]
+
+jobs:
+  whitesource-vulnerability-scan:
+    name: Vulnerability Scan
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 14
+
+      - name: Vulnerability Scan
+        env:
+          wss_apikey: ${{ secrets.WSS_API_KEY }}
+        run: |
+          #!/bin/bash
+          set -e
+          standalone-tools/wss-scan_tmp.sh
+          pwd
+
+#      - name: Send mail
+#        if: ${{ always() }}
+#        uses: dawidd6/action-send-mail@master
+#        with:
+#          server_address: smtp.gmail.com
+#          server_port: 465
+#          username: ${{secrets.MAIL_USERNAME}}
+#          password: ${{secrets.MAIL_PASSWORD}}
+          #subject: Opendistro for Elasticsearch Build - Daily Run (Plugin Status)
+          #          subject: ODFE Vulnerability Scan Details
+          # Read file contents as body:
+#          body: file://
+#          to: sreekarj@amazon.com
+#          from: Opendistro Elasticsearch
+          # Optional content type:
+#          content_type: text/html

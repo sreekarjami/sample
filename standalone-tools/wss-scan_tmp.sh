@@ -22,81 +22,79 @@ curl -LJO -sS https://github.com/whitesource/unified-agent-distribution/releases
 
 echo "Download completed"
 
-#Scanning the config file for the user configurations
-source wss-scan.config
-gitRepos=${gitRepos//,/$'\n'}  # change the semicolons to white space
+###Scanning the config file for the user configurations
+# source wss-scan.config
+#gitRepos=${gitRepos//,/$'\n'}  # change the semicolons to white space
 
-basepath=$baseDirPath"/repos"
+#basepath=$baseDirPath"/repos"
 
-if [[ ! -e $basepath ]]; then
+#if [[ ! -e $basepath ]]; then
     mkdir -p $basepath
-fi
+#fi
  
 
-echo "Cleaning up scan directories if already present"
-rm -rf $basepath/*
+#echo "Cleaning up scan directories if already present"
+#rm -rf $basepath/*
 
 
 #Cloning the desired Repos for scanning 
-for repo in $gitRepos
-do
-        echo "Cloning repo "$gitBasePath$repo
-    git clone "$gitBasePath$repo".git $basepath"/"$repo
-done
+#for repo in $gitRepos
+#do
+#        echo "Cloning repo "$gitBasePath$repo
+#    git clone "$gitBasePath$repo".git $basepath"/"$repo
+#done
 
-cp /dev/null info.txt
+#cp /dev/null info.txt
 
-#Scanning the Repos using the WhiteSource Unified Agent
-for repo in $gitRepos
-do
-	if [ -d "$basepath"/"$repo" ]
-        then
-           echo "Scanning repo :"$gitBasePath$repo " Project:" $repo 
-	   repo_path=$basepath"/"$repo
-#           java -jar wss-unified-agent.jar -c wss-unified-agent.config -d $repo_path -apiKey $wss_apikey -product ODFE -project $repo | grep "Project name" | sed 's/^.\{,41\}//' >> info.txt 2>&1 &	
-	else
-	   echo "Scanning failed for repo :"$gitBasePath$repo " Project:" $repo
-        fi
-done
+##Scanning the Repos using the WhiteSource Unified Agent
+#for repo in $gitRepos
+#do
+#	if [ -d "$basepath"/"$repo" ]
+#        then
+#           echo "Scanning repo :"$gitBasePath$repo " Project:" $repo 
+#	   repo_path=$basepath"/"$repo
+##           java -jar wss-unified-agent.jar -c wss-unified-agent.config -d $repo_path -apiKey $wss_apikey -product ODFE -project $repo | grep "Project name" | sed 's/^.\{,41\}//' >> info.txt 2>&1 &	
+#	else
+#	   echo "Scanning failed for repo :"$gitBasePath$repo " Project:" $repo
+#        fi
+#done
 
-#Waiting for the scannings to complete
-while ps ax | grep -vw grep| grep -w "wss-unified-agent.jar" > /dev/null
-do
-        echo "scanning is still in progress"
-        sleep 20
+##Waiting for the scannings to complete
+#while ps ax | grep -vw grep| grep -w "wss-unified-agent.jar" > /dev/null
+#do
+#        echo "scanning is still in progress"
+#        sleep 20
 
-done
-echo "scanning has completed"
+#done
+#echo "scanning has completed"
 
-#Mail function to send the scan details to the desired recepient 
-mail_func()
-{
+##Mail function to send the scan details to the desired recepient 
+#mail_func()
+#{
 
-echo "Sending mail"
-cp /dev/null tmp.html
+#echo "Sending mail"
+#cp /dev/null tmp.html
 
-echo "<html><body><table border=1 cellspacing=0 cellpadding=3>" >> tmp.html
+#echo "<html><body><table border=1 cellspacing=0 cellpadding=3>" >> tmp.html
 
-while IFS= read -r line
-do
-  #echo "$line"
-  #setting comma as the delimiter
+#while IFS= read -r line
+#do
 
-  IFS=','
-  read -ra val <<< "$line"
-        echo "<tr>" >> tmp.html
-        for ln in "${val[@]}"; do
-            echo "${ln//[[:space:]]/}"
-            echo "<td>"${ln//[[:space:]]/}"</td>" >>tmp.html
-        done
-        echo "</tr>" >> tmp.html
-done < info.txt
-echo "</table></body></html>" >>tmp.html
+#  IFS=','
+#  read -ra val <<< "$line"
+#        echo "<tr>" >> tmp.html
+#        for ln in "${val[@]}"; do
+#            echo "${ln//[[:space:]]/}"
+#            echo "<td>"${ln//[[:space:]]/}"</td>" >>tmp.html
+#        done
+#        echo "</tr>" >> tmp.html
+#done < info.txt
+#echo "</table></body></html>" >>tmp.html
+#
+#echo -e "Content-Type: text/html; charset='utf-8'\r\nSubject: ODFE Vulnerability Scan details" |cat - tmp.html |sendmail -t ${emailid}
+#}
 
-echo -e "Content-Type: text/html; charset='utf-8'\r\nSubject: ODFE Vulnerability Scan details" |cat - tmp.html |sendmail -t ${emailid}
-}
+##mail_func
 
-#mail_func
-
-#Removing the WhiteSource unified Jar and the the temporary mail file
-rm "wss-unified-agent.jar" "tmp.html"
+##Removing the WhiteSource unified Jar and the the temporary mail file
+##rm "wss-unified-agent.jar" "tmp.html"

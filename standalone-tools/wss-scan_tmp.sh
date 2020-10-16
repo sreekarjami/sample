@@ -22,6 +22,9 @@ curl -LJO -sS https://github.com/whitesource/unified-agent-distribution/releases
 
 echo "Download completed"
 
+ls -ltr 
+pwd
+
 ###Scanning the config file for the user configurations
 # source wss-scan.config
 #gitRepos=${gitRepos//,/$'\n'}  # change the semicolons to white space
@@ -29,7 +32,7 @@ echo "Download completed"
 #basepath=$baseDirPath"/repos"
 
 #if [[ ! -e $basepath ]]; then
-    mkdir -p $basepath
+#    mkdir -p $basepath
 #fi
  
 

@@ -26,26 +26,26 @@ ls -ltr
 pwd
 
 ###Scanning the config file for the user configurations
-# source wss-scan.config
-#gitRepos=${gitRepos//,/$'\n'}  # change the semicolons to white space
+source standalone-tools/wss-scan.config
+gitRepos=${gitRepos//,/$'\n'}  # change the semicolons to white space
 
-#basepath=$baseDirPath"/repos"
+basepath=$baseDirPath"/repos"
 
-#if [[ ! -e $basepath ]]; then
-#    mkdir -p $basepath
-#fi
+if [[ ! -e $basepath ]]; then
+    mkdir -p $basepath
+fi
  
 
-#echo "Cleaning up scan directories if already present"
-#rm -rf $basepath/*
+echo "Cleaning up scan directories if already present"
+rm -rf $basepath/*
 
 
 #Cloning the desired Repos for scanning 
-#for repo in $gitRepos
-#do
-#        echo "Cloning repo "$gitBasePath$repo
-#    git clone "$gitBasePath$repo".git $basepath"/"$repo
-#done
+for repo in $gitRepos
+do
+        echo "Cloning repo "$gitBasePath$repo
+    git clone "$gitBasePath$repo".git $basepath"/"$repo
+done
 
 #cp /dev/null info.txt
 

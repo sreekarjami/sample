@@ -13,7 +13,7 @@ public class sample {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-     System.out.println("Sample test");
+     System.out.println("Sample test1 ");
      CloseableHttpClient httpClient = HttpClients.createDefault();
 
      try {

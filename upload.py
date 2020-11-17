@@ -1,10 +1,10 @@
 #! /usr/bin/python
 import boto3
-import json
 import os
-import requests
 import sys
-import logging
+import yaml
+import hashlib
+import requests
 
 
 print("Build number : " + str(sys.argv[1]))

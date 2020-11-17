@@ -12,7 +12,7 @@ jobs:
 
       - name: Install python packages
         run: |
-          sudo yum install -y python-pip
+         #sudo yum install -y python-pip
           sudo pip install boto3
           sudo pip install pyyaml
     

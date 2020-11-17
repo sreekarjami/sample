@@ -18,4 +18,4 @@ jobs:
     
       - name: Moving artifacts from snapshots to release folder
         run: |
-          upload.py ${GITHUB_RUN_ID}
+          ./upload.py ${GITHUB_RUN_ID}
